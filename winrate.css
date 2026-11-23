@@ -1,0 +1,31 @@
+/* Winrate calculator page. Shared colors, navbar, buttons, number boxes
+   and result panel are in base.css. */
+
+/* Wider number boxes for match counts and percentages */
+input[type=number].wide { width: 72px; }
+
+/* Quick target buttons */
+.presets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.presets button.tog { padding: 8px 14px; min-width: 56px; }
+
+/* Current vs target bar */
+.progress {
+  grid-column: 1 / -1; position: relative;
+  height: 10px; margin: 4px 8px 2px;
+  border-radius: 99px; background: var(--panel-2); border: 1px solid var(--line);
+}
+.progress .bar {
+  height: 100%; width: 0; border-radius: 99px;
+  background: linear-gradient(90deg, #2f8f73, var(--good));
+  transition: width .5s cubic-bezier(.2, .8, .2, 1);
+}
+.progress .marker {
+  position: absolute; top: -5px; width: 3px; height: 18px; left: 0;
+  margin-left: -1.5px; border-radius: 2px;
+  background: var(--accent); box-shadow: 0 0 8px rgba(243, 179, 61, .7);
+  transition: left .5s cubic-bezier(.2, .8, .2, 1);
+}
+
+/* Change value colors */
+.val.up   { color: var(--good); }
+.val.down { color: #ef6b6b; }

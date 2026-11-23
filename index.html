@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spell Timer</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="home.css">
+<script src="spells.js" defer></script>
+<script src="icons.js" defer></script>
+<script src="home.js" defer></script>
+</head>
+<body>
+<nav class="nav" aria-label="Main">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M10 2h4"/></svg></span>
+      <span class="brand-text">Spell Timer</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="calculator.html">Cooldowns</a></li>
+      <li><a href="winrate.html">Winrate</a></li>
+      <li><a href="draft.html">Draft</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <header class="hero">
+    <p class="eyebrow">MLBB battle spell tracker</p>
+    <h1>Know exactly when their spell is back.</h1>
+    <p class="sub">Pick a spell, add Pull Yourself Together and kills/assists, and get the game-clock time it comes off cooldown.</p>
+    <div class="cta-row">
+      <a class="cta" href="calculator.html">
+        Open the cooldown calculator
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="cta secondary" href="winrate.html">
+        Winrate calculator
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="cta secondary" href="draft.html">
+        Draft simulator
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <section>
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li>
+        <span class="step-num">1</span>
+        <div><strong>Pick the spell</strong><p>Its base cooldown fills in automatically.</p></div>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <div><strong>Set PYT and kills/assists</strong><p>Each kill or assist cuts the cooldown a little more.</p></div>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <div><strong>Enter when it was used</strong><p>See the game time it'll be ready again.</p></div>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Battle spells</h2>
+    <p class="hint">Tap a spell to open the calculator with it picked.</p>
+    <div class="spell-grid" id="spellGrid"></div>
+  </section>
+
+  <section class="pyt-note">
+    <h2>Pull Yourself Together</h2>
+    <p>PYT cuts battle spell cooldowns by <strong id="pytBaseText">12%</strong>, plus <strong id="pytStackText">1%</strong> for each kill or assist, up to <strong id="pytMaxText">8</strong>, for a maximum of <strong id="pytTotalText">20%</strong>. If a patch changes these numbers, you can edit them in the calculator.</p>
+  </section>
+</main>
+</body>
+</html>

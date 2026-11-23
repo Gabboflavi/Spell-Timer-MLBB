@@ -1,0 +1,55 @@
+/* Cooldown calculator page. Shared colors, navbar, buttons, number boxes
+   and result panel are in base.css. */
+
+h2.spaced { margin-top: 16px; }
+
+/* Button grids */
+.grid { display: grid; gap: 8px; }
+.spells { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+.kills { grid-template-columns: repeat(9, 1fr); }
+
+/* Spell buttons */
+button.tog.drop { border-color: var(--good); border-style: dashed; }
+.spells .icon { margin: 0 auto 6px; transition: transform .25s cubic-bezier(.3, 1.4, .5, 1); }
+button.tog[aria-pressed="true"] .icon { border-color: var(--accent-ink); color: var(--accent); }
+button.tog:not(:disabled):hover .icon { transform: scale(1.1) rotate(-6deg); }
+.spell-name { display: block; font-weight: 600; }
+.spell-cd { display: block; font-size: .8rem; opacity: .75; }
+
+/* Spell buttons pop in one by one (delay set in calculator.js) */
+.spells button.tog { animation: pop-in .35s cubic-bezier(.3, 1.4, .5, 1) both; }
+.spells button.tog[aria-pressed="true"] { animation: pop-in .35s both, glow 2.2s ease-in-out .35s infinite; }
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(.85); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Game time (minutes : seconds) */
+.time { display: flex; align-items: center; gap: 6px; }
+.time input { width: 34px; }
+.time > span { font-size: 1.2rem; color: var(--muted); }
+
+/* PYT button, with a light sweep across it when turned on */
+.pyt { width: 100%; padding: 12px; position: relative; overflow: hidden; }
+.pyt::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, .45) 50%, transparent 70%);
+  transform: translateX(-100%); pointer-events: none;
+}
+.pyt[aria-pressed="true"]::after { animation: sweep .7s ease-out; }
+@keyframes sweep { to { transform: translateX(100%); } }
+
+/* Kill buttons fade between enabled/disabled */
+.kills button.tog { transition: opacity .25s, border-color .15s, background .15s, color .15s, transform .15s, box-shadow .2s; }
+
+button.link {
+  background: none; border: 0; color: var(--muted); font: inherit; font-size: .82rem;
+  cursor: pointer; text-decoration: underline; padding: 0;
+}
+details summary { cursor: pointer; color: var(--muted); font-size: .85rem; }
+details .row { margin-top: 12px; }
+
+/* Phones */
+@media (max-width: 520px) {
+  .kills { grid-template-columns: repeat(5, 1fr); }
+}

@@ -1,0 +1,86 @@
+/* Homepage styles. Shared colors, layout and navbar are in base.css. */
+
+/* ---------- Hero ---------- */
+
+.hero { padding: 24px 0 28px; }
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--accent); font-size: .8rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .1em;
+}
+.hero h1 { font-size: clamp(1.8rem, 5vw, 2.4rem); line-height: 1.15; margin-bottom: 10px; }
+.hero .sub { max-width: 520px; font-size: 1rem; }
+
+.cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px; border-radius: 10px;
+  background: var(--accent); color: var(--accent-ink);
+  font-weight: 700; text-decoration: none;
+  box-shadow: 0 6px 20px rgba(243, 179, 61, .25);
+  transition: transform .15s, box-shadow .2s;
+  animation: cta-glow 2.6s ease-in-out 1s infinite;
+}
+.cta svg {
+  width: 18px; height: 18px; fill: none; stroke: currentColor;
+  stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round;
+  transition: transform .2s;
+}
+.cta:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(243, 179, 61, .4); }
+.cta:hover svg { transform: translateX(4px); }
+.cta:active { transform: scale(.97); }
+.cta-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.cta.secondary {
+  background: var(--panel-2); color: var(--text);
+  border: 1px solid var(--line); box-shadow: none; animation: none;
+}
+.cta.secondary:hover { border-color: var(--accent); box-shadow: 0 8px 20px rgba(0, 0, 0, .35); }
+@keyframes cta-glow {
+  0%, 100% { box-shadow: 0 6px 20px rgba(243, 179, 61, .25); }
+  50%      { box-shadow: 0 6px 28px rgba(243, 179, 61, .5); }
+}
+
+/* ---------- How it works ---------- */
+
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.steps li { display: flex; gap: 12px; align-items: flex-start; }
+.steps strong { display: block; }
+.steps p { margin: 2px 0 0; color: var(--muted); font-size: .9rem; }
+.step-num {
+  flex: none; width: 28px; height: 28px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--panel-2); border: 1px solid var(--line);
+  color: var(--accent); font-weight: 700; font-size: .85rem;
+}
+
+/* ---------- Spell grid ---------- */
+
+.hint { color: var(--muted); font-size: .82rem; margin: -4px 0 12px; }
+.spell-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+
+.spell-card {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 12px 8px; border-radius: 10px;
+  background: var(--panel-2); border: 1px solid var(--line);
+  text-decoration: none; text-align: center;
+  transition: border-color .15s, transform .15s, box-shadow .2s;
+  animation: pop-in .35s cubic-bezier(.3, 1.4, .5, 1) both;
+}
+.spell-card:hover {
+  border-color: var(--accent); transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .35);
+}
+.spell-card:active { transform: scale(.96); }
+.spell-card .icon { transition: transform .25s cubic-bezier(.3, 1.4, .5, 1); }
+.spell-card:hover .icon { transform: scale(1.12) rotate(-6deg); }
+.spell-card .name { font-weight: 600; }
+.spell-card .cd { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.spell-card .cd b { color: var(--good); font-weight: 600; }
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(.85); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- PYT note ---------- */
+
+.pyt-note p { margin: 0; color: var(--muted); }
+.pyt-note strong { color: var(--text); }

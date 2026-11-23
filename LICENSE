@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Gabboflavi
+Copyright (c) 2026 <your name>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---------------------------------------------------------------------------
+
+Third-party content NOT covered by this license
+
+This license applies only to the original code in this repository (the HTML,
+CSS and JavaScript files) and its documentation.
+
+It does not cover, and grants no rights to:
+
+  - the images in the icons/ and heroes/ folders, and
+  - Mobile Legends: Bang Bang names, hero names, battle spell names, artwork
+    or other game content.
+
+All of that belongs to Moonton and is used here in an unofficial fan
+project. This project is not affiliated with or endorsed by Moonton.

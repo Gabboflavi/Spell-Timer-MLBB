@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cooldown Calculator</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="calculator.css">
+<script src="spells.js" defer></script>
+<script src="icons.js" defer></script>
+<script src="ui.js" defer></script>
+<script src="calculator.js" defer></script>
+</head>
+<body>
+<nav class="nav" aria-label="Main">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M10 2h4"/></svg></span>
+      <span class="brand-text">Spell Timer</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="calculator.html" aria-current="page">Cooldowns</a></li>
+      <li><a href="winrate.html">Winrate</a></li>
+      <li><a href="draft.html">Draft</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <h1>Battle Spell Cooldown Calculator</h1>
+  <p class="sub">Pick a spell, set Pull Yourself Together and kills/assists, and see when it's back on the game clock.</p>
+
+  <section>
+    <h2>Battle spell</h2>
+    <div class="grid spells" id="spells"></div>
+    <p class="hint">To use the in-game icons, drag an image onto a spell button. It can be a saved file or straight from another browser tab. Right-click a button to remove its icon.</p>
+  </section>
+
+  <section>
+    <h2>Original cooldown &amp; game time used</h2>
+    <div class="row">
+      <label class="field">Base cooldown (s)
+        <input type="number" id="baseCd" min="1" max="600" step="1">
+      </label>
+      <label class="field">Used at (game time)
+        <div class="time">
+          <input type="number" id="useMin" min="0" max="99" value="0" aria-label="Minutes">
+          <span>:</span>
+          <input type="number" id="useSec" min="0" max="59" value="0" aria-label="Seconds" data-rollover-into="useMin" data-rollover-at="59">
+        </div>
+      </label>
+    </div>
+    <p class="hint">The base cooldown fills in from the spell you pick. Change it if a patch has changed it. <button class="link" id="resetCd" type="button">Reset to default</button></p>
+  </section>
+
+  <section>
+    <h2>Pull Yourself Together</h2>
+    <button class="tog pyt" id="pyt" type="button" aria-pressed="false">PYT: Off</button>
+
+    <h2 class="spaced">Kills + assists</h2>
+    <div class="grid kills" id="kills"></div>
+    <p class="hint" id="killHint">Turn on PYT to count kills and assists.</p>
+
+    <details>
+      <summary>PYT values (edit if a patch changes them)</summary>
+      <div class="row">
+        <label class="field">Base reduction (%)
+          <input type="number" id="pytBase" min="0" max="100" value="12">
+        </label>
+        <label class="field">Per kill/assist (%)
+          <input type="number" id="pytStack" min="0" max="100" step="0.5" value="1">
+        </label>
+        <label class="field">Max stacks
+          <input type="number" id="pytMax" min="0" max="50" value="8">
+        </label>
+      </div>
+    </details>
+  </section>
+
+  <section class="result" aria-live="polite">
+    <div class="stat"><div class="lbl">Cooldown</div><div class="val" id="outCd">–</div></div>
+    <div class="stat"><div class="lbl">Used at</div><div class="val" id="outUsed">–</div></div>
+    <div class="stat big"><div class="lbl">Ready at</div><div class="val" id="outReady">–</div></div>
+    <p class="breakdown" id="breakdown"></p>
+  </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Winrate Calculator</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="winrate.css">
+<script src="ui.js" defer></script>
+<script src="winrate.js" defer></script>
+</head>
+<body>
+<nav class="nav" aria-label="Main">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M10 2h4"/></svg></span>
+      <span class="brand-text">Spell Timer</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="calculator.html">Cooldowns</a></li>
+      <li><a href="winrate.html" aria-current="page">Winrate</a></li>
+      <li><a href="draft.html">Draft</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <h1>Winrate Calculator</h1>
+  <p class="sub">See how many wins in a row you need to reach a target win rate, or what a run of wins and losses does to it.</p>
+
+  <section>
+    <h2>Your stats</h2>
+    <div class="row">
+      <label class="field">Total matches
+        <input type="number" id="matches" class="wide" min="0" max="99999" value="100">
+      </label>
+      <label class="field">Current win rate (%)
+        <input type="number" id="current" class="wide" min="0" max="100" step="0.1" value="50">
+      </label>
+    </div>
+  </section>
+
+  <section>
+    <h2>Target</h2>
+    <div class="row">
+      <label class="field">Target win rate (%)
+        <input type="number" id="target" class="wide" min="0" max="100" step="0.1" value="60">
+      </label>
+    </div>
+    <div class="presets" id="presets" aria-label="Quick targets"></div>
+  </section>
+
+  <section class="result" aria-live="polite">
+    <div class="stat"><div class="lbl">Current wins</div><div class="val" id="outWins">–</div></div>
+    <div class="stat big"><div class="lbl" id="needLabel">Wins needed</div><div class="val" id="outNeed">–</div></div>
+    <div class="stat"><div class="lbl">Losses you can afford</div><div class="val" id="outAfford">–</div></div>
+    <div class="progress" aria-hidden="true">
+      <div class="bar" id="barCurrent"></div>
+      <div class="marker" id="barTarget"></div>
+    </div>
+    <p class="breakdown" id="needText"></p>
+  </section>
+
+  <section>
+    <h2>What if…</h2>
+    <div class="row">
+      <label class="field">Wins to add
+        <input type="number" id="addWins" class="wide" min="0" max="9999" value="0">
+      </label>
+      <label class="field">Losses to add
+        <input type="number" id="addLosses" class="wide" min="0" max="9999" value="0">
+      </label>
+    </div>
+  </section>
+
+  <section class="result" aria-live="polite">
+    <div class="stat"><div class="lbl">Matches</div><div class="val" id="outMatches">–</div></div>
+    <div class="stat big"><div class="lbl">New win rate</div><div class="val" id="outNewRate">–</div></div>
+    <div class="stat"><div class="lbl">Change</div><div class="val" id="outChange">–</div></div>
+    <p class="breakdown" id="whatIfText"></p>
+  </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Draft Simulator</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="draft.css">
+<script src="heroes.js" defer></script>
+<script src="analysis.js" defer></script>
+<script src="ui.js" defer></script>
+<script src="draft.js" defer></script>
+</head>
+<body>
+<nav class="nav" aria-label="Main">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M10 2h4"/></svg></span>
+      <span class="brand-text">Spell Timer</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="calculator.html">Cooldowns</a></li>
+      <li><a href="winrate.html">Winrate</a></li>
+      <li><a href="draft.html" aria-current="page">Draft</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wide">
+  <h1>Draft Simulator</h1>
+  <p class="sub">Practice the ban and pick phase. Draft both sides yourself, or play one team against a computer opponent.</p>
+
+  <section class="controls">
+    <div class="control">
+      <h2>Format</h2>
+      <div class="seg" id="formatBtns"></div>
+    </div>
+    <div class="control">
+      <h2>First pick</h2>
+      <div class="seg" id="firstBtns"></div>
+    </div>
+    <div class="control">
+      <h2>Opponent</h2>
+      <div class="seg" id="modeBtns"></div>
+    </div>
+    <div class="control">
+      <h2>Turn timer</h2>
+      <div class="seg"><button class="tog" id="timerBtn" type="button" aria-pressed="false">Off</button></div>
+    </div>
+    <div class="control actions">
+      <button class="tog" id="undoBtn" type="button">Undo</button>
+      <button class="tog" id="resetBtn" type="button">Reset</button>
+    </div>
+  </section>
+
+  <div class="board">
+    <aside class="team blue" id="team-blue">
+      <h2 class="team-name">Blue team</h2>
+      <div class="bans" data-team="blue"></div>
+      <ol class="picks" data-team="blue"></ol>
+    </aside>
+
+    <div class="center">
+      <div class="turn" id="turn" aria-live="polite">
+        <div class="turn-team" id="turnTeam">–</div>
+        <div class="turn-action" id="turnAction">–</div>
+      </div>
+      <div class="timer" id="timer" hidden><div class="timer-bar" id="timerBar"></div><span id="timerText"></span></div>
+      <ol class="timeline" id="timeline" aria-label="Draft order"></ol>
+      <p class="phase" id="phase"></p>
+    </div>
+
+    <aside class="team red" id="team-red">
+      <h2 class="team-name">Red team</h2>
+      <div class="bans" data-team="red"></div>
+      <ol class="picks" data-team="red"></ol>
+    </aside>
+  </div>
+
+  <section class="summary" id="summary" hidden>
+    <h2>Draft analysis</h2>
+    <p class="verdict" id="verdict"></p>
+    <div class="summary-grid">
+      <div class="comp blue" id="anaBlue"></div>
+      <div class="comp red" id="anaRed"></div>
+    </div>
+    <p class="hint">A rough estimate from hero roles and a few simple traits (damage type, crowd control), not real match data. You can edit the traits in heroes.js.</p>
+  </section>
+
+  <section class="pool">
+    <div class="pool-head">
+      <input type="search" id="search" placeholder="Search heroes" aria-label="Search heroes" autocomplete="off">
+      <div class="roles-filter" id="roleBtns"></div>
+    </div>
+    <div class="hero-grid" id="heroGrid"></div>
+    <p class="hint" id="poolHint"></p>
+  </section>
+</main>
+</body>
+</html>

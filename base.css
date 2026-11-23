@@ -1,0 +1,260 @@
+/* Shared by every page: colors, layout, navbar, spell icons, page-load animation. */
+
+:root {
+  --bg: #0d1220;
+  --panel: #151c30;
+  --panel-2: #1c2540;
+  --line: #2a3557;
+  --text: #e8ecf7;
+  --muted: #8f9bbd;
+  --accent: #f3b33d;
+  --accent-ink: #1a1305;
+  --good: #4fd1a5;
+  --radius: 12px;
+  --nav-h: 56px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+a { color: inherit; }
+
+main { max-width: 760px; margin: 0 auto; padding: 28px 16px 48px; }
+h1 { font-size: 1.6rem; margin: 0 0 4px; letter-spacing: .01em; }
+.sub { color: var(--muted); margin: 0 0 24px; }
+
+section {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+h2 {
+  font-size: .8rem; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--muted); margin: 0 0 12px; font-weight: 600;
+}
+
+button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- Navbar ---------- */
+
+.nav {
+  position: sticky; top: 0; z-index: 10;
+  height: var(--nav-h);
+  background: rgba(13, 18, 32, .82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  max-width: 760px; height: 100%; margin: 0 auto; padding: 0 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.brand {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 700; letter-spacing: .02em; text-decoration: none;
+}
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 8px;
+  display: grid; place-items: center;
+  background: var(--accent); color: var(--accent-ink);
+}
+.brand-mark svg {
+  width: 16px; height: 16px; fill: none; stroke: currentColor;
+  stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+}
+.brand:hover .brand-mark { animation: tick .6s ease-in-out; }
+@keyframes tick {
+  30% { transform: rotate(-12deg); }
+  60% { transform: rotate(8deg); }
+}
+
+.nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+.nav-links a {
+  position: relative; display: block;
+  padding: 8px 12px; border-radius: 8px;
+  color: var(--muted); text-decoration: none; font-weight: 500;
+  transition: color .15s, background .15s;
+}
+.nav-links a:hover { color: var(--text); background: var(--panel-2); }
+/* Gold underline that grows in on hover and stays on the current page */
+.nav-links a::after {
+  content: ""; position: absolute; left: 12px; right: 12px; bottom: 3px;
+  height: 2px; border-radius: 2px; background: var(--accent);
+  transform: scaleX(0); transition: transform .25s cubic-bezier(.2, .8, .2, 1);
+}
+.nav-links a:hover::after { transform: scaleX(.5); }
+.nav-links a[aria-current="page"] { color: var(--text); }
+.nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+
+@media (max-width: 560px) {
+  .brand-text { display: none; }
+  .nav-links { gap: 0; }
+  .nav-links a { padding: 8px 8px; font-size: .9rem; }
+  .nav-links a::after { left: 8px; right: 8px; }
+}
+
+/* ---------- Spell icons ---------- */
+
+.icon {
+  display: grid; place-items: center;
+  width: 44px; height: 44px;
+  border-radius: 50%; overflow: hidden;
+  background: #0f1528; border: 1px solid var(--line);
+}
+.icon svg {
+  width: 24px; height: 24px; fill: none; stroke: currentColor;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.icon img { width: 100%; height: 100%; object-fit: cover; animation: fade .3s ease-out; }
+@keyframes fade { from { opacity: 0; } }
+
+/* ---------- Toggle buttons ---------- */
+
+button.tog {
+  appearance: none; cursor: pointer;
+  background: var(--panel-2); color: var(--text);
+  border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px 8px; font: inherit; text-align: center;
+  transition: border-color .15s, background .15s, color .15s, transform .15s, box-shadow .2s;
+}
+button.tog:hover { border-color: #46557f; }
+button.tog:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0, 0, 0, .35); }
+button.tog:not(:disabled):active { transform: translateY(0) scale(.96); }
+button.tog[aria-pressed="true"] {
+  background: var(--accent); color: var(--accent-ink); border-color: var(--accent);
+  font-weight: 600;
+  animation: glow 2.2s ease-in-out infinite;
+}
+button.tog:disabled { opacity: .35; cursor: not-allowed; }
+
+/* Selected button: soft glowing pulse */
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(243, 179, 61, .0); }
+  50%      { box-shadow: 0 0 14px 2px rgba(243, 179, 61, .45); }
+}
+/* A quick "pressed" bounce on whichever button was just picked */
+.picked { animation: picked .3s cubic-bezier(.3, 1.6, .5, 1) !important; }
+@keyframes picked {
+  0%   { transform: scale(.9); }
+  100% { transform: none; }
+}
+
+/* ---------- Form fields ---------- */
+
+.row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+label.field { display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: .85rem; }
+.hint { color: var(--muted); font-size: .82rem; margin: 10px 0 0; }
+
+/* Number inputs: native arrows hidden, replaced by −/+ buttons (built in ui.js) */
+input[type=number] {
+  appearance: textfield; -moz-appearance: textfield;
+  background: transparent; color: var(--text);
+  border: 0; padding: 8px 2px; margin: 0;
+  font: inherit; font-variant-numeric: tabular-nums;
+  width: 52px; text-align: center;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number]:focus { outline: none; }
+
+.stepper {
+  display: inline-flex; align-items: stretch;
+  background: var(--panel-2);
+  border: 1px solid var(--line); border-radius: 10px;
+  overflow: hidden;
+  transition: border-color .15s, box-shadow .2s;
+}
+.stepper:hover { border-color: #46557f; }
+.stepper:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(243, 179, 61, .18); }
+.num-clip { display: block; overflow: hidden; }
+
+.step {
+  appearance: none; border: 0; cursor: pointer;
+  width: 30px; padding: 0;
+  background: transparent; color: var(--muted);
+  font: 600 1.1rem/1 system-ui, sans-serif;
+  transition: color .12s, background .12s, transform .1s;
+  user-select: none; touch-action: manipulation;
+}
+.step:hover:not(:disabled) { color: var(--accent); background: rgba(243, 179, 61, .1); }
+.step:active:not(:disabled) { transform: scale(.85); }
+.step:disabled { opacity: .3; cursor: default; }
+.step:focus-visible { outline-offset: -2px; }
+
+/* The value rolls up or down when it changes, and the box flashes gold */
+.roll-up   { animation: roll-up .22s cubic-bezier(.2, .8, .2, 1); }
+.roll-down { animation: roll-down .22s cubic-bezier(.2, .8, .2, 1); }
+@keyframes roll-up {
+  from { transform: translateY(70%); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+@keyframes roll-down {
+  from { transform: translateY(-70%); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+.stepper.changed { animation: box-flash .4s ease-out; }
+@keyframes box-flash {
+  from { box-shadow: 0 0 0 3px rgba(243, 179, 61, .45); }
+  to   { box-shadow: 0 0 0 3px rgba(243, 179, 61, 0); }
+}
+
+/* ---------- Result panel ---------- */
+
+.result {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  background: linear-gradient(180deg, #1d2645, var(--panel));
+}
+.stat { text-align: center; padding: 6px 4px; }
+.stat .lbl { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; }
+.stat .val { display: inline-block; font-size: 1.9rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stat.big .val { color: var(--good); }
+.breakdown { grid-column: 1 / -1; text-align: center; color: var(--muted); font-size: .85rem; margin: 0; }
+
+/* Result numbers bump when they change; the highlighted one also glows */
+.bump { animation: bump .35s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes bump {
+  0%   { transform: scale(1.18); }
+  100% { transform: none; }
+}
+.stat.big .val.bump { animation: bump .35s cubic-bezier(.3, 1.6, .5, 1), ready-flash .6s ease-out; }
+@keyframes ready-flash {
+  from { text-shadow: 0 0 18px rgba(79, 209, 165, .9); }
+  to   { text-shadow: none; }
+}
+
+@media (max-width: 520px) {
+  .result { grid-template-columns: 1fr; }
+  .stat .val { font-size: 1.6rem; }
+}
+
+/* ---------- Page-load animation ---------- */
+
+/* Sections slide in one after another when the page opens */
+main > * { animation: rise .5s cubic-bezier(.2, .8, .2, 1) both; }
+main > :nth-child(2) { animation-delay: .05s; }
+main > :nth-child(3) { animation-delay: .10s; }
+main > :nth-child(4) { animation-delay: .15s; }
+main > :nth-child(5) { animation-delay: .20s; }
+main > :nth-child(6) { animation-delay: .25s; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Respect the system "reduce motion" setting */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
